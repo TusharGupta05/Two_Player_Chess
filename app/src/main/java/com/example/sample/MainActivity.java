@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     static King WK;            //1
     static King BK;            //b1
     static int turn=1;         // 1 = White, 2 = Black
+    static boolean CanWhiteKingEverCastle = true,CanBlackKingEverCastle = true,CanWhiteKingEverLongCastle = true,CanBlackKingEverLongCastle = true,CanWhiteKingEverShortCastle = true,CanBlackKingEverShortCastle = true;
 
     static Map<Integer,String> Tags = new HashMap<>();
     static Map<Integer,String> newTags;
@@ -126,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tag.equals("1"))
                 {
                     WK.setWhiteKingsSquaresControlled();
+                    CheckCastling.CheckWhiteCastling();
                     for(int i:WK.squaresControlled)
                         img[i/10-1][i%10-1].setClickable(true);
                     //System.out.println(WK.squaresControlled.size());
@@ -194,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 if(tag.equals("b1"))
                 {
                     BK.setBlackKingsSquaresControlled();
+                    CheckCastling.CheckBlackCastling();
                     for(int i:BK.squaresControlled)
                         img[i/10-1][i%10-1].setClickable(true);
                     //System.out.println(BK.squaresControlled.size());
@@ -265,7 +268,7 @@ public class MainActivity extends AppCompatActivity {
             x2 = Float.valueOf(view.getX());
             y2 = Float.valueOf(view.getY());
             temp2 = (ImageView) view;
-            String tag = temp.getTag().toString(),tag1 = temp.getTag().toString();
+            String tag = temp.getTag().toString(),tag1 = temp.getTag().toString(),tag2 = temp2.getTag().toString();
             if (tag.charAt(0) == 'b')
                 tag = tag.substring(0, 2);
             else
@@ -281,6 +284,18 @@ public class MainActivity extends AppCompatActivity {
             }
             if(isLegalMove(temp,temp2))
             {
+                if(tag.equals("1") || (CanWhiteKingEverShortCastle == false && CanWhiteKingEverLongCastle == false))
+                    CanWhiteKingEverCastle = false;
+                else if(tag.equals("b1") || (CanBlackKingEverShortCastle == false && CanBlackKingEverLongCastle == false))
+                    CanBlackKingEverCastle = false;
+                else if(tag.equals("31") || tag2.equals("31"))
+                    CanWhiteKingEverLongCastle = false;
+                else if(tag.equals("32") || tag2.equals("32"))
+                    CanWhiteKingEverShortCastle = false;
+                else if(tag.equals("b31") || tag2.equals("b31"))
+                    CanBlackKingEverLongCastle = false;
+                else if(tag.equals("b32") || tag2.equals("b32"))
+                    CanBlackKingEverShortCastle = false;
                 final String finalTag = tag,finalTag1 = tag1;
                 temp.animate().translationXBy(x2 - x1).translationYBy(y2 - y1).setDuration(500).setListener(new Animator.AnimatorListener() {
                     @Override
@@ -454,6 +469,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
+
             else
             {
                 Toast.makeText(MainActivity.this, "Illegal move!!",Toast.LENGTH_LONG).show();

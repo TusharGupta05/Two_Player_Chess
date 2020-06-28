@@ -1,12 +1,179 @@
 package com.example.sample;
 
+import android.animation.Animator;
 import android.widget.ImageView;
 import static com.example.sample.SquaresControl.*;
 import static com.example.sample.MainActivity.*;
+import static java.sql.Types.NULL;
 
 public class LegalMove {
 
-    static boolean isLegalMove(ImageView temp, ImageView temp2){
+    static boolean isLegalMove(final ImageView temp, ImageView temp2){
+
+        if(turn == 1)
+        {
+            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 31)  //long
+            {
+                temp.setTag("0");
+                temp2.setTag("1");
+                img[3][0].setTag("31");
+                img[0][0].setTag("0");
+                WK.Position = 31;
+                WR1.Position = 41;
+                final float x1 = img[0][0].getX(),y1 = img[0][0].getY(),x2 = img[3][0].getX(),y2 = img[3][0].getY();
+                img[0][0].animate().translationXBy(x2-x1).translationYBy(y2-y1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+                        img[0][0].setImageResource(NULL);
+                        img[3][0].setImageResource(R.drawable.whiterook);
+                        img[0][0].setX(x1);
+                        img[0][0].setY(y1);
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+                CanWhiteKingEverCastle = false;
+                CanWhiteKingEverShortCastle = false;
+                CanWhiteKingEverLongCastle = false;
+                return true;
+            }
+            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 71)  //short
+            {
+                img[5][0].setTag("32");
+                img[6][0].setTag("1");
+                img[7][0].setTag("0");
+                img[4][0].setTag("0");
+                WK.Position = 71;
+                WR2.Position = 61;
+                final float x1 = img[7][0].getX(),y1 = img[7][0].getY(),x2 = img[5][0].getX(),y2 = img[5][0].getY();
+                img[7][0].animate().translationXBy(x2-x1).translationYBy(y2-y1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+
+                        img[7][0].setImageResource(NULL);
+                        img[5][0].setImageResource(R.drawable.whiterook);
+                        img[7][0].setX(x1);
+                        img[7][0].setY(y1);
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+
+                CanWhiteKingEverCastle = false;
+                CanWhiteKingEverShortCastle = false;
+                CanWhiteKingEverLongCastle = false;
+                return true;
+            }
+        }
+        else
+        {
+            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 38)
+            {
+                    temp.setTag("0");
+                    temp2.setTag("b1");
+                    img[3][7].setTag("b31");
+                    img[0][7].setTag("0");
+                    BK.Position = 31;
+                    BR1.Position = 41;
+                    final float x1 = img[0][7].getX(),y1 = img[0][7].getY(),x2 = img[3][7].getX(),y2 = img[3][7].getY();
+                    img[0][7].animate().translationXBy(x2-x1).translationYBy(y2-y1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                        @Override
+                        public void onAnimationStart(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animator) {
+                            img[0][7].setImageResource(NULL);
+                            img[3][7].setImageResource(R.drawable.blackrook);
+                            img[0][7].setX(x1);
+                            img[0][7].setY(y1);
+                        }
+
+                        @Override
+                        public void onAnimationCancel(Animator animator) {
+
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animator animator) {
+
+                        }
+                    });
+                    CanBlackKingEverCastle = false;
+                    CanBlackKingEverLongCastle = false;
+                    CanBlackKingEverShortCastle = false;
+                    return true;
+            }
+            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 78)
+            {
+                img[5][7].setTag("32");
+                img[6][7].setTag("1");
+                img[7][7].setTag("0");
+                img[4][7].setTag("0");
+                BK.Position = 78;
+                BR2.Position = 68;
+                final float x1 = img[7][7].getX(),y1 = img[7][7].getY(),x2 = img[5][7].getX(),y2 = img[5][7].getY();
+                img[7][7].animate().translationXBy(x2-x1).translationYBy(y2-y1).setDuration(500).setListener(new Animator.AnimatorListener() {
+                    @Override
+                    public void onAnimationStart(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animator animator) {
+
+                        img[7][7].setImageResource(NULL);
+                        img[5][7].setImageResource(R.drawable.blackrook);
+                        img[7][7].setX(x1);
+                        img[7][7].setY(y1);
+
+                    }
+
+                    @Override
+                    public void onAnimationCancel(Animator animator) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animator animator) {
+
+                    }
+                });
+
+                CanBlackKingEverCastle = false;
+                CanBlackKingEverLongCastle = false;
+                CanBlackKingEverShortCastle = false;
+                return true;
+            }
+        }
 
         String otag1 = temp.getTag().toString(),otag2 = temp2.getTag().toString();
         int pos2 = squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)),pos1 = squares.get(temp.getResources().getResourceName(temp.getId()).substring(22,24));
