@@ -80,8 +80,7 @@ public class MainActivity extends AppCompatActivity {
             }
             if(Checkmate.isWhiteCheckmated())
                 return;
-
-            Tags = new HashMap<>(newTags);
+            getTags();
         }
         else
         {
@@ -104,13 +103,15 @@ public class MainActivity extends AppCompatActivity {
             if(Checkmate.isBlackCheckmated())
                 return;
 
-            Tags = new HashMap<>(newTags);
+            getTags();
         }
 
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void Clicked(final View view){
+
+        getTags();
 
         if(clickedonce == false)
         {
@@ -181,8 +182,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(tag.charAt(0) == '6')
                 {
-                    whitePawn[Integer.parseInt(tag.substring(1))-1].setWhitePawnsSquaresControlled();
-                    for(int i:whitePawn[Integer.parseInt(tag.substring(1))-1].squaresControlled) {
+                    whitePawn[tag.charAt(1)-49].setWhitePawnsSquaresControlled();
+                    for(int i:whitePawn[tag.charAt(1)-49].squaresControlled) {
                         img[i / 10 - 1][i % 10 - 1].setClickable(true);
                     }
                 }
@@ -248,8 +249,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if(tag.charAt(1) == '6')
                 {
-                    blackPawn[Integer.parseInt(tag.substring(2))-1].setBlackPawnsSquaresControlled();
-                    for(int i:blackPawn[Integer.parseInt(tag.substring(2))-1].squaresControlled) {
+                    blackPawn[tag.charAt(2)-49].setBlackPawnsSquaresControlled();
+                    for(int i:blackPawn[tag.charAt(2)-49].squaresControlled) {
                         img[i / 10 - 1][i % 10 - 1].setClickable(true);
                     }
                 }
@@ -259,6 +260,7 @@ public class MainActivity extends AppCompatActivity {
         else
         {
             clickedonce = false;
+            DisableClickAll();
             temp.setBackgroundColor(NULL);
             x2 = Float.valueOf(view.getX());
             y2 = Float.valueOf(view.getY());
@@ -270,12 +272,10 @@ public class MainActivity extends AppCompatActivity {
                 tag = tag.substring(0, 1);
             if (turn == 1 && temp2.getTag().toString().charAt(0) != 'b' && temp2.getTag().toString().charAt(0) != '0') {
                 promotionLayoutWhite.setVisibility(View.INVISIBLE);
-                DisableClickAll();
                 EnableWhitePiecesClickable();
                 return;
             } else if (turn == 2 && temp2.getTag().toString().charAt(0) == 'b') {
                 promotionLayoutBlack.setVisibility(View.INVISIBLE);
-                DisableClickAll();
                 EnableBlackPiecesClickable();
                 return;
             }
@@ -336,11 +336,9 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             case "b6":
                                 int pos1 = squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24));
-                                System.out.println("pos1 "+pos1);
                                 for(int i=0;i<8;i++) {
                                     int p=blackPawn[i].Position;
                                     if(blackPawn[i].isActive && p == pos1) {
-
                                         String id = blackPawn[i].id1;
                                         switch (id) {
                                             case "b2":
@@ -418,12 +416,31 @@ public class MainActivity extends AppCompatActivity {
                         temp.setY(y1);
                         temp.setImageResource(NULL);
                         getTags();
-                        if(turn == 1 && isBlackCheckmated())
-                            return;
-                        else if(turn == 2 && isWhiteCheckmated())
-                            return;
-                        Tags = new HashMap<>(newTags);
                         gameControl();
+                        if(turn == 2) {
+                            updateSquaresControlledByWhite();
+                            for(int i:squaresControlledByWhite) {
+                                if(i == BK.Position) {
+                                    if(isBlackCheckmated()) {
+                                        Toast.makeText(MainActivity.this, "White checkmated Black!!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        else {
+                            updateSquaresControlledByBlack();
+                            for(int i:squaresControlledByBlack) {
+                                if(i == WK.Position) {
+                                    if(isWhiteCheckmated()) {
+                                        Toast.makeText(MainActivity.this, "Black checkmated white!!", Toast.LENGTH_SHORT).show();
+                                        return;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
                     }
 
                     @Override
@@ -436,6 +453,14 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+            }
+            else
+            {
+                Toast.makeText(MainActivity.this, "Illegal move!!",Toast.LENGTH_LONG).show();
+                if(turn == 1)
+                    EnableWhitePiecesClickable();
+                else
+                    EnableBlackPiecesClickable();
             }
 
 
@@ -498,6 +523,7 @@ public class MainActivity extends AppCompatActivity {
     public static void getTags(){
 
         int t;
+        Tags = new HashMap<>();
         for(int i=0;i<8;i++)
         {
             t = i+1;
@@ -582,7 +608,7 @@ public class MainActivity extends AppCompatActivity {
                                 { findViewById(R.id.d1), findViewById(R.id.d2), findViewById(R.id.d3), findViewById(R.id.d4), findViewById(R.id.d5), findViewById(R.id.d6), findViewById(R.id.d7), findViewById(R.id.d8)},
                                 { findViewById(R.id.e1), findViewById(R.id.e2), findViewById(R.id.e3), findViewById(R.id.e4), findViewById(R.id.e5), findViewById(R.id.e6), findViewById(R.id.e7), findViewById(R.id.e8)},
                                 { findViewById(R.id.f1), findViewById(R.id.f2), findViewById(R.id.f3), findViewById(R.id.f4), findViewById(R.id.f5), findViewById(R.id.f6), findViewById(R.id.f7), findViewById(R.id.f8)},
-                                { findViewById(R.id.g1), findViewById(R.id.f2), findViewById(R.id.g3), findViewById(R.id.g4), findViewById(R.id.g5), findViewById(R.id.g6), findViewById(R.id.g7), findViewById(R.id.g8)},
+                                { findViewById(R.id.g1), findViewById(R.id.g2), findViewById(R.id.g3), findViewById(R.id.g4), findViewById(R.id.g5), findViewById(R.id.g6), findViewById(R.id.g7), findViewById(R.id.g8)},
                                 { findViewById(R.id.h1), findViewById(R.id.h2), findViewById(R.id.h3), findViewById(R.id.h4), findViewById(R.id.h5), findViewById(R.id.h6), findViewById(R.id.h7), findViewById(R.id.h8)}};
         getTags();
         DisableClickAll();
