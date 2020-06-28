@@ -12,7 +12,7 @@ public class LegalMove {
 
         if(turn == 1)
         {
-            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 31)  //long
+            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 31 && img[4][0].getTag().toString().equals("1") )  //long
             {
                 temp.setTag("0");
                 temp2.setTag("1");
@@ -50,7 +50,7 @@ public class LegalMove {
                 CanWhiteKingEverLongCastle = false;
                 return true;
             }
-            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 71)  //short
+            if(temp.getTag().toString().equals("1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 71 && img[4][0].getTag().toString().equals("1") )  //short
             {
                 img[5][0].setTag("32");
                 img[6][0].setTag("1");
@@ -94,7 +94,7 @@ public class LegalMove {
         }
         else
         {
-            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 38)
+            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 38 && img[4][7].getTag().toString().equals("b1") )
             {
                     temp.setTag("0");
                     temp2.setTag("b1");
@@ -132,10 +132,10 @@ public class LegalMove {
                     CanBlackKingEverShortCastle = false;
                     return true;
             }
-            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 78)
+            if(temp.getTag().toString().equals("b1") && squares.get(temp2.getResources().getResourceName(temp2.getId()).substring(22,24)) == 78 && img[4][7].getTag().toString().equals("b1"))
             {
-                img[5][7].setTag("32");
-                img[6][7].setTag("1");
+                img[5][7].setTag("b32");
+                img[6][7].setTag("b1");
                 img[7][7].setTag("0");
                 img[4][7].setTag("0");
                 BK.Position = 78;

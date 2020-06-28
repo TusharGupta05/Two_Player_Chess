@@ -286,15 +286,15 @@ public class MainActivity extends AppCompatActivity {
             {
                 if(tag.equals("1") || (CanWhiteKingEverShortCastle == false && CanWhiteKingEverLongCastle == false))
                     CanWhiteKingEverCastle = false;
-                else if(tag.equals("b1") || (CanBlackKingEverShortCastle == false && CanBlackKingEverLongCastle == false))
+                if(tag.equals("b1") || (CanBlackKingEverShortCastle == false && CanBlackKingEverLongCastle == false))
                     CanBlackKingEverCastle = false;
-                else if(tag.equals("31") || tag2.equals("31"))
+                if(tag.equals("31") || tag2.equals("31"))
                     CanWhiteKingEverLongCastle = false;
-                else if(tag.equals("32") || tag2.equals("32"))
+                if(tag.equals("32") || tag2.equals("32"))
                     CanWhiteKingEverShortCastle = false;
-                else if(tag.equals("b31") || tag2.equals("b31"))
+                if(tag.equals("b31") || tag2.equals("b31"))
                     CanBlackKingEverLongCastle = false;
-                else if(tag.equals("b32") || tag2.equals("b32"))
+                if(tag.equals("b32") || tag2.equals("b32"))
                     CanBlackKingEverShortCastle = false;
                 final String finalTag = tag,finalTag1 = tag1;
                 temp.animate().translationXBy(x2 - x1).translationYBy(y2 - y1).setDuration(500).setListener(new Animator.AnimatorListener() {
