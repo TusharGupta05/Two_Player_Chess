@@ -574,7 +574,7 @@ public class Pawn {
                 temp-=10;
             }
         }
-        else if(id1.equals("4"))
+        else if(id1.equals("b4"))
         {
             int temp = Position+11;
             squaresControlled = new ArrayList<>();

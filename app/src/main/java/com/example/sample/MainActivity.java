@@ -64,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         if(tag.charAt(0) == 'b')
         {
             blackPawn[temp2.getTag().toString().charAt(2)-49].id1 = tag;
+            temp.setX(x1);
+            temp.setY(y1);
+            temp.setImageResource(NULL);
             promotionLayoutBlack.setVisibility(View.INVISIBLE);
             switch (tag) {
                 case "b2":
@@ -79,15 +82,26 @@ public class MainActivity extends AppCompatActivity {
                     temp2.setImageResource(R.drawable.blacknight);
                     break;
             }
+            getTags();
+            updateSquaresControlledByBlack();
+            gameControl();
             if(Checkmate.isWhiteCheckmated()) {
-                Toast.makeText(this, "Black Checkmated White!!", Toast.LENGTH_SHORT).show();
+                for(int i: squaresControlledByBlack) {
+                    if (i == WK.Position) {
+                        Toast.makeText(this, "Black Checkmated White!!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                Toast.makeText(this, "Stalemate!!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            getTags();
         }
         else
         {
             whitePawn[temp2.getTag().toString().charAt(1)-49].id = tag;
+            temp.setX(x1);
+            temp.setY(y1);
+            temp.setImageResource(NULL);
             promotionLayoutWhite.setVisibility(View.INVISIBLE);
             switch (tag) {
                 case "2":
@@ -103,11 +117,20 @@ public class MainActivity extends AppCompatActivity {
                     temp2.setImageResource(R.drawable.whitenight);
                     break;
             }
+            getTags();
+            updateSquaresControlledByWhite();
+            gameControl();
             if(Checkmate.isBlackCheckmated()) {
-                Toast.makeText(this, "White Checkmated Black!!", Toast.LENGTH_SHORT).show();
+                for(int i:squaresControlledByWhite)
+                {
+                    if(i == BK.Position){
+                        Toast.makeText(this, "White Checkmated Black!!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                Toast.makeText(this, "Stalemate!!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            getTags();
         }
 
     }
@@ -277,11 +300,9 @@ public class MainActivity extends AppCompatActivity {
             else
                 tag = tag.substring(0, 1);
             if (turn == 1 && temp2.getTag().toString().charAt(0) != 'b' && temp2.getTag().toString().charAt(0) != '0') {
-                promotionLayoutWhite.setVisibility(View.INVISIBLE);
                 EnableWhitePiecesClickable();
                 return;
             } else if (turn == 2 && temp2.getTag().toString().charAt(0) == 'b') {
-                promotionLayoutBlack.setVisibility(View.INVISIBLE);
                 EnableBlackPiecesClickable();
                 return;
             }
@@ -319,6 +340,8 @@ public class MainActivity extends AppCompatActivity {
                                 promotionLayoutWhite.setX(temp_X);
                                 promotionLayoutWhite.setY(temp_Y);
                                 promotionLayoutWhite.setVisibility(View.VISIBLE);
+                                DisableClickAll();
+                                return;
 
                             }
                         }
@@ -332,6 +355,8 @@ public class MainActivity extends AppCompatActivity {
                                 promotionLayoutBlack.setX(temp_X);
                                 promotionLayoutBlack.setY(temp_Y);
                                 promotionLayoutBlack.setVisibility(View.VISIBLE);
+                                DisableClickAll();
+                                return;
 
                             }
                         }

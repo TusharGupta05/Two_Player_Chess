@@ -633,13 +633,12 @@
         android:id="@+id/promotionLayoutBlack"
         android:layout_width="50dp"
         android:layout_height="200dp"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:visibility="invisible"
         android:weightSum="4"
-        app:layout_constraintBottom_toBottomOf="@+id/chessGrid"
-        app:layout_constraintEnd_toEndOf="@+id/chessGrid"
-        app:layout_constraintStart_toStartOf="@+id/chessGrid"
-        app:layout_constraintTop_toTopOf="@+id/chessGrid">
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="366dp">
 
         <ImageView
             android:id="@+id/imageView4"
@@ -682,13 +681,12 @@
         android:id="@+id/promotionLayoutWhite"
         android:layout_width="50dp"
         android:layout_height="200dp"
+        android:background="#000000"
         android:orientation="vertical"
         android:visibility="invisible"
         android:weightSum="4"
-        app:layout_constraintBottom_toBottomOf="@+id/chessGrid"
-        app:layout_constraintEnd_toEndOf="@+id/chessGrid"
-        app:layout_constraintStart_toStartOf="@+id/chessGrid"
-        app:layout_constraintTop_toTopOf="@+id/chessGrid">
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="366dp">
 
         <ImageView
             android:id="@+id/imageView5"
