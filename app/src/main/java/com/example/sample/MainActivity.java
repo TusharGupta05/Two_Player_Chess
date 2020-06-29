@@ -79,8 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     temp2.setImageResource(R.drawable.blacknight);
                     break;
             }
-            if(Checkmate.isWhiteCheckmated())
+            if(Checkmate.isWhiteCheckmated()) {
+                Toast.makeText(this, "Black Checkmated White!!", Toast.LENGTH_SHORT).show();
                 return;
+            }
             getTags();
         }
         else
@@ -101,9 +103,10 @@ public class MainActivity extends AppCompatActivity {
                     temp2.setImageResource(R.drawable.whitenight);
                     break;
             }
-            if(Checkmate.isBlackCheckmated())
+            if(Checkmate.isBlackCheckmated()) {
+                Toast.makeText(this, "White Checkmated Black!!", Toast.LENGTH_SHORT).show();
                 return;
-
+            }
             getTags();
         }
 
