@@ -462,26 +462,29 @@ public class MainActivity extends AppCompatActivity {
                         gameControl();
                         if(turn == 2) {
                             updateSquaresControlledByWhite();
-                            for(int i:squaresControlledByWhite) {
-                                if(i == BK.Position) {
-                                    if(isBlackCheckmated()) {
-                                        Toast.makeText(MainActivity.this, "White checkmated Black!!", Toast.LENGTH_SHORT).show();
+                            if(Checkmate.isBlackCheckmated()) {
+                                for(int i:squaresControlledByWhite)
+                                {
+                                    if(i == BK.Position){
+                                        Toast.makeText(MainActivity.this, "White Checkmated Black!!", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
-                                    break;
                                 }
+                                Toast.makeText(MainActivity.this, "Stalemate!!", Toast.LENGTH_SHORT).show();
+                                return;
                             }
                         }
                         else {
                             updateSquaresControlledByBlack();
-                            for(int i:squaresControlledByBlack) {
-                                if(i == WK.Position) {
-                                    if(isWhiteCheckmated()) {
-                                        Toast.makeText(MainActivity.this, "Black checkmated white!!", Toast.LENGTH_SHORT).show();
+                            if(Checkmate.isWhiteCheckmated()) {
+                                for(int i: squaresControlledByBlack) {
+                                    if (i == WK.Position) {
+                                        Toast.makeText(MainActivity.this, "Black Checkmated White!!", Toast.LENGTH_SHORT).show();
                                         return;
                                     }
-                                    break;
                                 }
+                                Toast.makeText(MainActivity.this, "Stalemate!!", Toast.LENGTH_SHORT).show();
+                                return;
                             }
                         }
                     }
